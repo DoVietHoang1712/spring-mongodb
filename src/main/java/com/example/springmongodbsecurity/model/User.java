@@ -15,7 +15,6 @@ import java.util.Set;
 @Document(collection = "users")
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class User {
     @Id
     private String id;
@@ -26,7 +25,9 @@ public class User {
     @NotBlank
     private String password;
 
-    private Gender gender;
+    private String gender;
+    private Boolean isActive;
+    private Boolean isEmailVerified;
 
     @Email
     private String email;
@@ -45,5 +46,14 @@ public class User {
         email = user.getEmail();
         roles = user.getRoles();
         gender = user.getGender();
+    }
+
+    public void addRole(Role role) {
+        roles.add(role);
+        // role.getUserList().add(this);
+    }
+
+    public void addRoles(Set<Role> roles) {
+        roles.forEach(this::addRole);
     }
 }
